@@ -8,30 +8,32 @@ LIBFT = libft/libft.a
 
 HEADER_DIR = include/
 SRC_DIR = src/
+OBJS_DIR = objs/
 
 FILENAMES = main
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR)ft_, $(FILENAMES)))
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR)ft_, $(FILENAMES)))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CCFLAGS) $(LIBFT) $(OBJS) -o $(NAME) $(MLXFLAGS)
+$(NAME): $(OBJS) Makefile
+	$(CC) $(CCFLAGS) -I$(HEADER_DIR) $(LIBFT) $(OBJS) -o $(NAME) $(MLXFLAGS)
 
-$(SRC_DIR)%.o: $(SRC_DIR)%.c
-	@make -sC libft
-	@make -sC minilibx-linux
-	$(CC) -c $(CCFLAGS) $(HEADER_DIR) -Iminilibx-linux $< -o $@
+$(OBJS_DIR)%.o: $(SRC_DIR)%.c
+	make -sC libft
+	make -sC minilibx-linux
+	mkdir -p $(OBJS_DIR)
+	$(CC) -c $(CCFLAGS) -I$(HEADER_DIR) -Iminilibx-linux $< -o $@
 
 clean:
-	@make -sC libft clean
-	@make -sC minilibx-linux clean
+	make -sC libft clean
+	make -sC minilibx-linux clean
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
-	@make -sC libft fclean
+	make -sC libft fclean
 	rm -f $(NAME)
-	rm -f $(OBJS)
 
 re: fclean all
 

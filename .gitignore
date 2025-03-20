@@ -1,6 +1,7 @@
 /minilibx-linux
+/.vscode
 
-/*.a
-/*.o
+*/*.a
+*/*.o
 
 so_long

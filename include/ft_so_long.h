@@ -13,6 +13,14 @@
 #ifndef FT_SO_LONG_H
 # define FT_SO_LONG_H
 
+typedef struct s_mlx_data
+{
+	void	*mlx;
+	void	*mlx_win;
+}	t_mlx_data;
+
 # include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+# include <X11/keysym.h>
 
 #endif
