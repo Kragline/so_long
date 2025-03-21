@@ -10,7 +10,7 @@ HEADER_DIR = include/
 SRC_DIR = src/
 OBJS_DIR = objs/
 
-FILENAMES = main
+FILENAMES = main keypress exit
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR)ft_, $(FILENAMES)))
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR)ft_, $(FILENAMES)))

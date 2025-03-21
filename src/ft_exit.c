@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_so_long.h                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/21 18:17:37 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/21 18:25:34 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SO_LONG_H
-# define FT_SO_LONG_H
+#include "../include/ft_so_long.h"
 
-typedef struct s_mlx_data
+int	close_window(t_mlx_data *data)
 {
-	void	*mlx;
-	void	*mlx_win;
-}	t_mlx_data;
-
-# include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
-# include <X11/keysym.h>
-
-int	handle_key_press(int keycode, t_mlx_data *data);
-int	close_window(t_mlx_data *data);
-
-#endif
+	mlx_destroy_window(data->mlx, data->mlx_win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(0);
+}
