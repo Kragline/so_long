@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_validation_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/22 15:34:36 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/22 17:49:46 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/22 17:49:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_so_long.h"
 
-int	close_window(t_mlx_data *data)
+int	ends_with_ber(char *filename)
 {
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
+	size_t	len;
+
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (0);
+	return (ft_strncmp(filename + len - 4, ".ber", 4) == 0);
+}
+
+int	open_map(char *filename)
+{
+	int	fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putendl_fd("Error\nCouldn't open mapfile", 2);
+		exit(1);
+	}
+	return (fd);
 }

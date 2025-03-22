@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/22 15:34:36 by armarake         ###   ########.fr       */
+/*   Created: 2025/01/29 13:36:07 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/09 15:07:29 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	close_window(t_mlx_data *data)
-{
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+
+char	*get_next_line(int fd);
+size_t	gnl_strlen(const char *s);
+char	*gnl_strchr(const char *s, int c);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*gnl_substr(char const *s, unsigned int start, size_t len);
+
+#endif

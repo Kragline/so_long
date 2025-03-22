@@ -10,21 +10,25 @@ HEADER_DIR = include/
 SRC_DIR = src/
 OBJS_DIR = objs/
 
-FILENAMES = main keypress exit
+GNL_DIR = gnl/
+
+FILENAMES = main keypress exit validation validation_utils
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR)ft_, $(FILENAMES)))
+SRCS += gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR)ft_, $(FILENAMES)))
+OBJS += gnl/get_next_line.o gnl/get_next_line_utils.o
 
 all: $(NAME)
 
 $(NAME): $(OBJS) Makefile
-	$(CC) $(CCFLAGS) -I$(HEADER_DIR) $(LIBFT) $(OBJS) -o $(NAME) $(MLXFLAGS)
+	$(CC) $(CCFLAGS) -I$(HEADER_DIR) -I$(GNL_DIR) $(LIBFT) $(OBJS) -o $(NAME) $(MLXFLAGS)
 
 $(OBJS_DIR)%.o: $(SRC_DIR)%.c
 	make -sC libft
 	make -sC minilibx-linux
 	mkdir -p $(OBJS_DIR)
-	$(CC) -c $(CCFLAGS) -I$(HEADER_DIR) -Iminilibx-linux $< -o $@
+	$(CC) -c $(CCFLAGS) -I$(HEADER_DIR) -Iminilibx-linux -I$(GNL_DIR) $< -o $@
 
 clean:
 	make -sC libft clean
