@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/23 21:06:45 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/23 22:26:45 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/23 22:26:45 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_so_long.h"
 
-int	close_window(t_mlx_data *data)
+void	find_starting_position(t_map *map, int *start_x, int *start_y)
 {
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
-}
+	int	i;
+	int	j;
 
-void	throw_an_error(char *message)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(message, 2);
-	exit(1);
+	i = 0;
+	while (i < map->rows)
+	{
+		j = 0;
+		while (j < map->cols)
+		{
+			if (map->map[i][j] == 'P')
+			{
+				*start_x = i;
+				*start_y = j;
+				break ;
+			}
+			j++;
+		}
+		i++;
+		if (*start_x != -1)
+			break ;
+	}
 }

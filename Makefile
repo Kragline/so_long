@@ -12,7 +12,7 @@ OBJS_DIR = objs/
 
 GNL_DIR = gnl/
 
-FILENAMES = main keypress exit validation validation_utils
+FILENAMES = main keypress exit validation validation_utils utils
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR)ft_, $(FILENAMES)))
 SRCS += gnl/get_next_line.c gnl/get_next_line_utils.c
 

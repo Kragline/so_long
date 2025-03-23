@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:55:00 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/22 14:55:00 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/23 23:16:14 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_the_line(char *s, int *e_count, int *c_count, int *sp_count)
 	return (1);
 }
 
-static int	check_map_characters(int map_fd)
+static int	check_map_characters(int map_fd, int *line_count)
 {
 	char	*line;
 	int		exit_count;
@@ -51,6 +51,7 @@ static int	check_map_characters(int map_fd)
 			line = NULL;
 			return (0);
 		}
+		(*line_count)++;
 		free(line);
 		line = NULL;
 		line = get_next_line(map_fd);
@@ -60,17 +61,66 @@ static int	check_map_characters(int map_fd)
 	return (0);
 }
 
-void	validate_map(char *filename, t_map *map)
+static void	allocate_map(t_map *map, int line_count)
 {
+	int		i;
+	char	*line;
+
+	map->map = (char **)malloc(sizeof(char *) * (line_count + 1)); //add null check
+	line = get_next_line(map->map_fd);
+	map->rows = line_count;
+	map->cols = ft_strlen(line) - 1;
+	i = 0;
+	while (line)
+	{
+		(map->map)[i] = ft_strdup(line); //add null check
+		i++;
+		free(line);
+		line = NULL;
+		line = get_next_line(map->map_fd);
+	}
+	(map->map)[i] = NULL;
+}
+
+static int	check_the_path(t_map *map)
+{
+	int	**visited;
+	int	i;
+	int	start_x;
+	int	start_y;
+
+	i = 0;
+	start_x = -1;
+	start_y = -1;
+	visited = (int **)ft_calloc(map->rows, sizeof(int *)); //add null check
+	while (i < map->rows)
+	{
+		visited[i] = (int *)ft_calloc(map->cols, sizeof(int));
+		i++;
+	}
+	find_starting_position(map, &start_x, &start_y);
+	if (start_x != -1 && dfs(map, visited, start_x, start_y))
+		return (1);
+	return (0);
+}
+// fix the leaks
+void	validate_and_allocate(char *filename, t_map *map)
+{
+	int	line_count;
+
 	if (!ends_with_ber(filename))
-	{
-		ft_putendl_fd("Error\nMap must have .ber extension", 2);
-		exit(1);
-	}
+		throw_an_error("Map must have .ber extension");
 	map->map_fd = open_map(filename);
-	if (!check_map_characters(map->map_fd))
-	{
-		ft_putendl_fd("Error\nInvalid map", 2);
-		exit(1);
-	}
+	line_count = 0;
+	if (!check_map_characters(map->map_fd, &line_count))
+		throw_an_error("Invalid map");
+	close(map->map_fd);
+	map->map_fd = open_map(filename);
+	allocate_map(map, line_count);
+	if (!check_the_path(map))
+		throw_an_error("No valid path");
+	if (!surrounded_by_walls(map))
+		throw_an_error("Map isn't surrounded by walls");
+	if (map->rows == map->cols)
+		throw_an_error("Map isn't rectangular");
 }
