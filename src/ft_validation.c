@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:55:00 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/23 23:16:14 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:22:10 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,18 @@ static void	allocate_map(t_map *map, int line_count)
 	int		i;
 	char	*line;
 
-	map->map = (char **)malloc(sizeof(char *) * (line_count + 1)); //add null check
+	map->map = (char **)malloc(sizeof(char *) * (line_count + 1));
+	if (!(map->map))
+		throw_an_error("Map allocation failed", NULL);
 	line = get_next_line(map->map_fd);
 	map->rows = line_count;
 	map->cols = ft_strlen(line) - 1;
 	i = 0;
 	while (line)
 	{
-		(map->map)[i] = ft_strdup(line); //add null check
+		(map->map)[i] = ft_strdup(line);
+		if (!(map->map))
+			throw_an_error("Map allocation failed", map);
 		i++;
 		free(line);
 		line = NULL;
@@ -82,45 +86,25 @@ static void	allocate_map(t_map *map, int line_count)
 	(map->map)[i] = NULL;
 }
 
-static int	check_the_path(t_map *map)
-{
-	int	**visited;
-	int	i;
-	int	start_x;
-	int	start_y;
-
-	i = 0;
-	start_x = -1;
-	start_y = -1;
-	visited = (int **)ft_calloc(map->rows, sizeof(int *)); //add null check
-	while (i < map->rows)
-	{
-		visited[i] = (int *)ft_calloc(map->cols, sizeof(int));
-		i++;
-	}
-	find_starting_position(map, &start_x, &start_y);
-	if (start_x != -1 && dfs(map, visited, start_x, start_y))
-		return (1);
-	return (0);
-}
-// fix the leaks
 void	validate_and_allocate(char *filename, t_map *map)
 {
 	int	line_count;
 
 	if (!ends_with_ber(filename))
-		throw_an_error("Map must have .ber extension");
+		throw_an_error("Map must have .ber extension", NULL);
 	map->map_fd = open_map(filename);
 	line_count = 0;
 	if (!check_map_characters(map->map_fd, &line_count))
-		throw_an_error("Invalid map");
+		throw_an_error("Invalid map", NULL);
 	close(map->map_fd);
 	map->map_fd = open_map(filename);
 	allocate_map(map, line_count);
-	if (!check_the_path(map))
-		throw_an_error("No valid path");
+	if (!check_exit_path(map))
+		throw_an_error("No valid for exit", map);
+	if (!check_collectibles_path(map))
+		throw_an_error("No valid for collectibles", map);
 	if (!surrounded_by_walls(map))
-		throw_an_error("Map isn't surrounded by walls");
+		throw_an_error("Map isn't surrounded by walls", map);
 	if (map->rows == map->cols)
-		throw_an_error("Map isn't rectangular");
+		throw_an_error("Map isn't rectangular", map);
 }

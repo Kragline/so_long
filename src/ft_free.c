@@ -1,32 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/24 13:41:10 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/24 13:02:16 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/24 13:02:16 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_so_long.h"
 
-int	close_window(t_mlx_data *data)
+void	ft_free_map(char **tab)
 {
-	if (data->map)
-		ft_free_map(data->map->map);
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(0);
+	int	i;
+
+	if (!*tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
 
-void	throw_an_error(char *message, t_map *map)
+void	ft_free_visited(int **tab)
 {
-	if (map)
-		ft_free_map(map->map);
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(message, 2);
-	exit(1);
+	int	i;
+
+	if (!*tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
