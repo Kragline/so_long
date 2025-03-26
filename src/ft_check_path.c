@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:02:39 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/24 14:02:39 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:33:02 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	check_exit_path(t_map *map)
 		ft_free_visited(visited);
 		return (1);
 	}
+	ft_free_visited(visited);
 	return (0);
 }
 
@@ -91,5 +92,6 @@ int	check_collectibles_path(t_map *map)
 	find_starting_position(map, &start_x, &start_y);
 	find_collectibles_count(map);
 	collected = collectable_dfs(map, visited, start_x, start_y);
+	ft_free_visited(visited);
 	return (collected == map->collectibles_count);
 }

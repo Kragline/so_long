@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/24 14:21:27 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:31:04 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ typedef struct s_mlx_data
 {
 	void	*mlx;
 	void	*mlx_win;
+	void	*grass_img;
+	void	*wall_img;
+	void	*coll_img;
+	void	*exit_img;
+	void	*player_img;
 	t_map	*map;
 }	t_mlx_data;
 
@@ -49,5 +54,6 @@ void	ft_free_visited(int **tab);
 int		**allocate_visited(t_map *map, int *start_x, int *start_y);
 int		check_exit_path(t_map *map);
 int		check_collectibles_path(t_map *map);
+void	draw_the_map(t_mlx_data *data);
 
 #endif

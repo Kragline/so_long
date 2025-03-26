@@ -15,7 +15,7 @@ GNL = gnl/get_next_line.c gnl/get_next_line_utils.c
 GNL_OBJS = objs/get_next_line.o objs/get_next_line_utils.o
 
 FILENAMES = main keypress exit validation validation_utils utils free \
-			check_path
+			check_path draw
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR)ft_, $(FILENAMES)))
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR)ft_, $(FILENAMES)))
 
