@@ -1,7 +1,7 @@
 NAME = so_long
 CC = cc
 
-CCFLAGS = -Wall -Wextra -Werror
+CCFLAGS = -Wall -Wextra -Werror -fsanitize=address
 MLXFLAGS = -Lmlx_Linux -lmlx_Linux -L ./minilibx-linux -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz
 
 LIBFT = libft/libft.a

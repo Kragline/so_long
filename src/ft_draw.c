@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:28:40 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/26 16:28:40 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:34:26 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ static void	init_textures(t_mlx_data *data)
 			"./img/exit.xpm", &width, &height);
 	data->coll_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/coin.xpm", &width, &height);
+	data->player_img = mlx_xpm_file_to_image(data->mlx,
+			"./img/knight.xpm", &width, &height);
+}
+
+static void	put_img(t_mlx_data *data, int i, int j)
+{
+	if (data->map->map[i][j] == 'P')
+	{
+		data->player->x_pos = j;
+		data->player->y_pos = i;
+		data->player->collected = 0;
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->player_img, j * 64, i * 64);
+	}
+	else if (data->map->map[i][j] == '1')
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->wall_img, j * 64, i * 64);
+	else if (data->map->map[i][j] == 'E')
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->exit_img, j * 64, i * 64);
+	else if (data->map->map[i][j] == 'C')
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->coll_img, j * 64, i * 64);
+	else
+		mlx_put_image_to_window(data->mlx, data->mlx_win,
+			data->grass_img, j * 64, i * 64);
 }
 
 static void	put_textures(t_mlx_data *data)
@@ -38,18 +64,7 @@ static void	put_textures(t_mlx_data *data)
 		j = 0;
 		while (j < data->map->cols)
 		{
-			if (data->map->map[i][j] == '1')
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->wall_img, j * 64, i * 64);
-			else if (data->map->map[i][j] == 'E')
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->exit_img, j * 64, i * 64);
-			else if (data->map->map[i][j] == 'C')
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->coll_img, j * 64, i * 64);
-			else
-				mlx_put_image_to_window(data->mlx, data->mlx_win,
-					data->grass_img, j * 64, i * 64);
+			put_img(data, i, j);
 			j++;
 		}
 		i++;
