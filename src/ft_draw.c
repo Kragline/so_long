@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:28:40 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/27 18:34:26 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/27 23:47:04 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	put_img(t_mlx_data *data, int i, int j)
 	{
 		data->player->x_pos = j;
 		data->player->y_pos = i;
-		data->player->collected = 0;
 		mlx_put_image_to_window(data->mlx, data->mlx_win,
 			data->player_img, j * 64, i * 64);
 	}

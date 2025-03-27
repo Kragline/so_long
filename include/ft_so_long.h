@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/27 18:34:42 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:55:01 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_player
 	int	x_pos;
 	int	y_pos;
 	int	collected;
+	int	movements;
 }	t_player;
 
 typedef struct s_mlx_data
@@ -56,7 +57,7 @@ typedef struct s_mlx_data
 }	t_mlx_data;
 
 int		handle_key_press(int keycode, t_mlx_data *data);
-int		close_window(t_mlx_data *data);
+int		close_game(t_mlx_data *data);
 void	validate_and_allocate(char *filename, t_map *map);
 int		ends_with_ber(char *filename);
 int		open_map(char *filename);
@@ -72,5 +73,7 @@ void	draw_the_map(t_mlx_data *data);
 void	clear_textures(t_mlx_data *data);
 void	change_position_vertical(t_mlx_data *data, int new_y);
 void	change_position_horizontal(t_mlx_data *data, int new_x);
+void	init_data(t_mlx_data *data, t_player *player, t_map *map);
+void	render_movecount(t_mlx_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:26:11 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/27 18:51:50 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:46:57 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	move_right(t_mlx_data *data)
 int	handle_key_press(int keycode, t_mlx_data *data)
 {
 	if (keycode == KEY_ESC)
-		close_window(data);
+		close_game(data);
 	else if (keycode == KEY_W)
 		move_up(data);
 	else if (keycode == KEY_S)
@@ -48,5 +48,6 @@ int	handle_key_press(int keycode, t_mlx_data *data)
 		move_left(data);
 	else if (keycode == KEY_A)
 		move_right(data);
+	render_movecount(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:35 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/27 19:03:35 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:48:07 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	render_next_frame(t_mlx_data *data)
 	if (data->counter >= 4000)
 	{
 		draw_the_map(data);
+		render_movecount(data);
 		data->counter = 0;
 	}
 	return (1);
@@ -37,11 +38,9 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, 64 * map.cols,
 			64 * map.rows, "So long");
-	data.map = &map;
-	data.player = &player;
-	data.counter = 0;
+	init_data(&data, &player, &map);
 	mlx_key_hook(data.mlx_win, handle_key_press, &data);
-	mlx_hook(data.mlx_win, 17, 0, close_window, &data);
+	mlx_hook(data.mlx_win, 17, 0, close_game, &data);
 	mlx_loop_hook(data.mlx, render_next_frame, &data);
 	mlx_loop(data.mlx);
 	return (0);
