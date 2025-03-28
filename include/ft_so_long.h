@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 00:55:01 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:13:34 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,23 @@ typedef struct s_mlx_data
 
 int		handle_key_press(int keycode, t_mlx_data *data);
 int		close_game(t_mlx_data *data);
-void	validate_and_allocate(char *filename, t_map *map);
+void	validate_and_allocate(char *filename, t_mlx_data *data);
 int		ends_with_ber(char *filename);
 int		open_map(char *filename);
-void	throw_an_error(char *message, t_map *map);
+void	throw_an_error(char *message, t_mlx_data *data);
 void	find_starting_position(t_map *map, int *start_x, int *start_y);
 int		surrounded_by_walls(t_map *map);
 void	ft_free_map(char **tab);
 void	ft_free_visited(int **tab);
-int		**allocate_visited(t_map *map, int *start_x, int *start_y);
-int		check_exit_path(t_map *map);
-int		check_collectibles_path(t_map *map);
+int		**allocate_visited(t_mlx_data *map, int *start_x, int *start_y);
+int		check_exit_path(t_mlx_data *data);
+int		check_collectibles_path(t_mlx_data *map);
 void	draw_the_map(t_mlx_data *data);
 void	clear_textures(t_mlx_data *data);
 void	change_position_vertical(t_mlx_data *data, int new_y);
 void	change_position_horizontal(t_mlx_data *data, int new_x);
 void	init_data(t_mlx_data *data, t_player *player, t_map *map);
 void	render_movecount(t_mlx_data *data);
+void	init_textures(t_mlx_data *data);
 
 #endif

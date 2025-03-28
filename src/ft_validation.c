@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:55:00 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/26 17:32:26 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:50:05 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,50 +61,50 @@ static int	check_map_characters(int map_fd, int *line_count)
 	return (0);
 }
 
-static void	allocate_map(t_map *map, int line_count)
+static void	allocate_map(t_mlx_data *data, int line_count)
 {
 	int		i;
 	char	*line;
 
-	map->map = (char **)malloc(sizeof(char *) * (line_count + 1));
-	if (!(map->map))
+	data->map->map = (char **)malloc(sizeof(char *) * (line_count + 1));
+	if (!(data->map->map))
 		throw_an_error("Map allocation failed", NULL);
-	line = get_next_line(map->map_fd);
-	map->rows = line_count;
-	map->cols = ft_strlen(line) - 1;
+	line = get_next_line(data->map->map_fd);
+	data->map->rows = line_count;
+	data->map->cols = ft_strlen(line) - 1;
 	i = 0;
 	while (line)
 	{
-		(map->map)[i] = ft_strdup(line);
-		if (!(map->map))
-			throw_an_error("Map allocation failed", map);
+		(data->map->map)[i] = ft_strdup(line);
+		if (!(data->map->map))
+			throw_an_error("Map allocation failed", data);
 		i++;
 		free(line);
 		line = NULL;
-		line = get_next_line(map->map_fd);
+		line = get_next_line(data->map->map_fd);
 	}
-	(map->map)[i] = NULL;
+	(data->map->map)[i] = NULL;
 }
 
-void	validate_and_allocate(char *filename, t_map *map)
+void	validate_and_allocate(char *filename, t_mlx_data *data)
 {
 	int	line_count;
 
 	if (!ends_with_ber(filename))
 		throw_an_error("Map must have .ber extension", NULL);
-	map->map_fd = open_map(filename);
+	data->map->map_fd = open_map(filename);
 	line_count = 0;
-	if (!check_map_characters(map->map_fd, &line_count))
+	if (!check_map_characters(data->map->map_fd, &line_count))
 		throw_an_error("Invalid map", NULL);
-	close(map->map_fd);
-	map->map_fd = open_map(filename);
-	allocate_map(map, line_count);
-	if (!check_exit_path(map))
-		throw_an_error("No valid for exit", map);
-	if (!check_collectibles_path(map))
-		throw_an_error("No valid for collectibles", map);
-	if (!surrounded_by_walls(map))
-		throw_an_error("Map isn't surrounded by walls", map);
-	if (map->rows == map->cols)
-		throw_an_error("Map isn't rectangular", map);
+	close(data->map->map_fd);
+	data->map->map_fd = open_map(filename);
+	allocate_map(data, line_count);
+	if (!check_exit_path(data))
+		throw_an_error("No valid for exit", data);
+	if (!check_collectibles_path(data))
+		throw_an_error("No valid for collectibles", data);
+	if (!surrounded_by_walls(data->map))
+		throw_an_error("Map isn't surrounded by walls", data);
+	if (data->map->rows == data->map->cols)
+		throw_an_error("Map isn't rectangular", data);
 }

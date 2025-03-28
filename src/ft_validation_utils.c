@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:49:46 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/24 14:13:24 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:52:12 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	open_map(char *filename)
 	return (fd);
 }
 
-int	**allocate_visited(t_map *map, int *start_x, int *start_y)
+int	**allocate_visited(t_mlx_data *data, int *start_x, int *start_y)
 {
 	int	i;
 	int	**visited;
@@ -40,16 +40,16 @@ int	**allocate_visited(t_map *map, int *start_x, int *start_y)
 	i = 0;
 	*start_x = -1;
 	*start_y = -1;
-	visited = (int **)ft_calloc(map->rows, sizeof(int *));
+	visited = (int **)ft_calloc(data->map->rows, sizeof(int *));
 	if (!visited)
-		throw_an_error("Path check failed", map);
-	while (i < map->rows - 1)
+		throw_an_error("Path check failed", data);
+	while (i < data->map->rows - 1)
 	{
-		visited[i] = (int *)ft_calloc(map->cols, sizeof(int));
+		visited[i] = (int *)ft_calloc(data->map->cols, sizeof(int));
 		if (!visited[i])
 		{
 			ft_free_visited(visited);
-			throw_an_error("Path check failed", map);
+			throw_an_error("Path check failed", data);
 		}
 		i++;
 	}

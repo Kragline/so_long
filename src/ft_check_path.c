@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:02:39 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/26 17:33:02 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:55:39 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ static int	exit_dfs(t_map *map, int**visited, int x, int y)
 	return (0);
 }
 
-int	check_exit_path(t_map *map)
+int	check_exit_path(t_mlx_data *data)
 {
 	int	**visited;
 	int	start_x;
 	int	start_y;
 
-	visited = allocate_visited(map, &start_x, &start_y);
-	find_starting_position(map, &start_x, &start_y);
-	if (exit_dfs(map, visited, start_x, start_y))
+	visited = allocate_visited(data, &start_x, &start_y);
+	find_starting_position(data->map, &start_x, &start_y);
+	if (exit_dfs(data->map, visited, start_x, start_y))
 	{
 		ft_free_visited(visited);
 		return (1);
@@ -81,17 +81,17 @@ static int	collectable_dfs(t_map *map, int **visited, int x, int y)
 	return (count);
 }
 
-int	check_collectibles_path(t_map *map)
+int	check_collectibles_path(t_mlx_data *data)
 {
 	int	**visited;
 	int	start_x;
 	int	start_y;
 	int	collected;
 
-	visited = allocate_visited(map, &start_x, &start_y);
-	find_starting_position(map, &start_x, &start_y);
-	find_collectibles_count(map);
-	collected = collectable_dfs(map, visited, start_x, start_y);
+	visited = allocate_visited(data, &start_x, &start_y);
+	find_starting_position(data->map, &start_x, &start_y);
+	find_collectibles_count(data->map);
+	collected = collectable_dfs(data->map, visited, start_x, start_y);
 	ft_free_visited(visited);
-	return (collected == map->collectibles_count);
+	return (collected == data->map->collectibles_count);
 }

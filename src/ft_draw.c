@@ -6,27 +6,37 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:28:40 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/27 23:47:04 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:13:27 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_so_long.h"
 
-static void	init_textures(t_mlx_data *data)
+void	init_textures(t_mlx_data *data)
 {
 	int	width;
 	int	height;
 
 	data->grass_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/grass.xpm", &width, &height);
+	if (!data->grass_img)
+		throw_an_error("Failed to create grass image", data);
 	data->wall_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/wall.xpm", &width, &height);
+	if (!data->wall_img)
+		throw_an_error("Failed to create wall image", data);
 	data->exit_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/exit.xpm", &width, &height);
+	if (!data->exit_img)
+		throw_an_error("Failed to create exit image", data);
 	data->coll_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/coin.xpm", &width, &height);
+	if (!data->coll_img)
+		throw_an_error("Failed to create collectible image", data);
 	data->player_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/knight.xpm", &width, &height);
+	if (!data->player_img)
+		throw_an_error("Failed to create player image", data);
 }
 
 static void	put_img(t_mlx_data *data, int i, int j)
@@ -72,6 +82,5 @@ static void	put_textures(t_mlx_data *data)
 
 void	draw_the_map(t_mlx_data *data)
 {
-	init_textures(data);
 	put_textures(data);
 }
