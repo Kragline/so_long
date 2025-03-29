@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:26:11 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 14:02:37 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:40:02 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ static void	move_down(t_mlx_data *data)
 static void	move_left(t_mlx_data *data)
 {
 	change_position_horizontal(data, data->player->x_pos + 1);
+	data->player_img = data->player->player_images[0];
 	draw_the_map(data);
 }
 
 static void	move_right(t_mlx_data *data)
 {
 	change_position_horizontal(data, data->player->x_pos - 1);
+	data->player_img = data->player->player_images[1];
 	draw_the_map(data);
 }
 

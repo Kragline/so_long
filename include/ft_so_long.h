@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 14:13:34 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:45:48 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
-# include <stdio.h>
-# include <fcntl.h>
 
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -36,11 +34,18 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	x_pos;
-	int	y_pos;
-	int	collected;
-	int	movements;
+	int		x_pos;
+	int		y_pos;
+	int		collected;
+	int		movements;
+	void	*player_images[2];
 }	t_player;
+
+typedef struct s_coin
+{
+	int			index;
+	void		*coin_images[6];
+}	t_coin;
 
 typedef struct s_mlx_data
 {
@@ -48,12 +53,13 @@ typedef struct s_mlx_data
 	void		*mlx_win;
 	void		*grass_img;
 	void		*wall_img;
-	void		*coll_img;
+	void		*coin_img;
 	void		*exit_img;
 	void		*player_img;
 	int			counter;
 	t_map		*map;
 	t_player	*player;
+	t_coin		*coin;
 }	t_mlx_data;
 
 int		handle_key_press(int keycode, t_mlx_data *data);
@@ -73,7 +79,7 @@ void	draw_the_map(t_mlx_data *data);
 void	clear_textures(t_mlx_data *data);
 void	change_position_vertical(t_mlx_data *data, int new_y);
 void	change_position_horizontal(t_mlx_data *data, int new_x);
-void	init_data(t_mlx_data *data, t_player *player, t_map *map);
+void	init_data(t_mlx_data *data, t_player *player, t_map *map, t_coin *coin);
 void	render_movecount(t_mlx_data *data);
 void	init_textures(t_mlx_data *data);
 

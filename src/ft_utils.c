@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 22:26:45 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 14:29:35 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:45:58 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	change_position_vertical(t_mlx_data *data, int new_y)
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] == 'E'
 		&& data->player->collected == data->map->collectibles_count)
-			close_game(data);
+		close_game(data);
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] != 'E'
 		&& data->map->map[new_y][data->player->x_pos] != '1')
@@ -77,7 +77,7 @@ void	change_position_horizontal(t_mlx_data *data, int new_x)
 
 void	render_movecount(t_mlx_data *data)
 {
-	char *count;
+	char	*count;
 
 	count = ft_itoa(data->player->movements);
 	if (!count)
@@ -89,11 +89,13 @@ void	render_movecount(t_mlx_data *data)
 	free(count);
 }
 
-void	init_data(t_mlx_data *data, t_player *player, t_map *map)
+void	init_data(t_mlx_data *data, t_player *player, t_map *map, t_coin *coin)
 {
 	data->map = map;
 	data->counter = 0;
+	data->player = player;
 	player->collected = 0;
 	player->movements = 0;
-	data->player = player;
+	data->coin = coin;
+	data->coin->index = 0;
 }
