@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:55:00 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/29 19:54:27 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/29 23:21:22 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	validate_and_allocate(char *filename, t_mlx_data *data)
 	line_count = 0;
 	if (!check_map_characters(data->map->map_fd, &line_count))
 		throw_an_error("Invalid map", NULL);
-	write(1, "a\n", 2);
 	close(data->map->map_fd);
 	data->map->map_fd = open_map(filename);
 	allocate_map(data, line_count);
