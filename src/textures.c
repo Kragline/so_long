@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_draw.c                                          :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 16:28:40 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/29 19:39:19 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/30 15:29:27 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/30 17:22:33 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#include "../include/so_long.h"
 
-static void	init_player_textures(t_mlx_data *data)
+static void	init_player_textures(t_data *data)
 {
 	int	width;
 	int	height;
@@ -26,7 +26,29 @@ static void	init_player_textures(t_mlx_data *data)
 	data->player_img = data->player->player_images[0];
 }
 
-static void	init_coin_textures(t_mlx_data *data)
+static void	init_ghost_textures(t_data *data)
+{
+	int	width;
+	int	height;
+
+	data->ghost->ghost_images[0] = mlx_xpm_file_to_image(data->mlx,
+			"./img/ghost1.xpm", &width, &height);
+	data->ghost->ghost_images[1] = mlx_xpm_file_to_image(data->mlx,
+			"./img/ghost2.xpm", &width, &height);
+	data->ghost->ghost_images[2] = mlx_xpm_file_to_image(data->mlx,
+			"./img/ghost3.xpm", &width, &height);
+	data->ghost->ghost_images[3] = mlx_xpm_file_to_image(data->mlx,
+			"./img/ghost4.xpm", &width, &height);
+	data->ghost->ghost_images[4] = mlx_xpm_file_to_image(data->mlx,
+			"./img/ghost5.xpm", &width, &height);
+	if (!data->ghost->ghost_images[0] || !data->ghost->ghost_images[1]
+		|| !data->ghost->ghost_images[2] || !data->ghost->ghost_images[3]
+		|| !data->ghost->ghost_images[4])
+		throw_an_error("Failed to initialize ghost textures", data);
+	data->ghost_img = data->ghost->ghost_images[0];
+}
+
+static void	init_coin_textures(t_data *data)
 {
 	int	width;
 	int	height;
@@ -44,20 +66,20 @@ static void	init_coin_textures(t_mlx_data *data)
 	data->coin->coin_images[5] = mlx_xpm_file_to_image(data->mlx,
 			"./img/coin6.xpm", &width, &height);
 	if (!data->coin->coin_images[0] || !data->coin->coin_images[1]
-		|| !data->coin->coin_images[1] || !data->coin->coin_images[2]
-		|| !data->coin->coin_images[3] || !data->coin->coin_images[4]
-		|| !data->coin->coin_images[5])
+		|| !data->coin->coin_images[2] || !data->coin->coin_images[3]
+		|| !data->coin->coin_images[4] || !data->coin->coin_images[5])
 		throw_an_error("Failed to initialize coin textures", data);
 	data->coin_img = data->coin->coin_images[0];
 }
 
-void	init_textures(t_mlx_data *data)
+void	init_textures(t_data *data)
 {
 	int	width;
 	int	height;
 
 	init_player_textures(data);
 	init_coin_textures(data);
+	init_ghost_textures(data);
 	data->grass_img = mlx_xpm_file_to_image(data->mlx,
 			"./img/grass.xpm", &width, &height);
 	data->wall_img = mlx_xpm_file_to_image(data->mlx,
@@ -66,45 +88,4 @@ void	init_textures(t_mlx_data *data)
 			"./img/exit.xpm", &width, &height);
 	if (!data->grass_img || !data->wall_img || !data->exit_img)
 		throw_an_error("Failed to initialize map textures", data);
-}
-
-static void	put_img(t_mlx_data *data, int i, int j)
-{
-	if (data->map->map[i][j] == 'P')
-	{
-		data->player->x_pos = j;
-		data->player->y_pos = i;
-		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->player_img, j * 64, i * 64);
-	}
-	else if (data->map->map[i][j] == '1')
-		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->wall_img, j * 64, i * 64);
-	else if (data->map->map[i][j] == 'E')
-		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->exit_img, j * 64, i * 64);
-	else if (data->map->map[i][j] == 'C')
-		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->coin_img, j * 64, i * 64);
-	else
-		mlx_put_image_to_window(data->mlx, data->mlx_win,
-			data->grass_img, j * 64, i * 64);
-}
-
-void	draw_the_map(t_mlx_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < data->map->rows)
-	{
-		j = 0;
-		while (j < data->map->cols)
-		{
-			put_img(data, i, j);
-			j++;
-		}
-		i++;
-	}
 }

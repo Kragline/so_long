@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 22:26:45 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/29 19:45:58 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/30 14:34:56 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/30 17:13:37 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#include "../include/so_long.h"
 
 void	find_starting_position(t_map *map, int *start_x, int *start_y)
 {
@@ -37,8 +37,11 @@ void	find_starting_position(t_map *map, int *start_x, int *start_y)
 	}
 }
 
-void	change_position_vertical(t_mlx_data *data, int new_y)
+void	change_position_vertical(t_data *data, int new_y)
 {
+	if (data->map->map[new_y][data->player->x_pos]
+		&& data->map->map[new_y][data->player->x_pos] == 'G')
+		game_over(data);
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] == 'E'
 		&& data->player->collected == data->map->collectibles_count)
@@ -56,8 +59,11 @@ void	change_position_vertical(t_mlx_data *data, int new_y)
 	}
 }
 
-void	change_position_horizontal(t_mlx_data *data, int new_x)
+void	change_position_horizontal(t_data *data, int new_x)
 {
+	if (data->map->map[data->player->y_pos][new_x]
+		&& data->map->map[data->player->y_pos][new_x] == 'G')
+		game_over(data);
 	if (data->map->map[data->player->y_pos][new_x]
 		&& data->map->map[data->player->y_pos][new_x] == 'E'
 		&& data->player->collected == data->map->collectibles_count)
@@ -75,7 +81,7 @@ void	change_position_horizontal(t_mlx_data *data, int new_x)
 	}
 }
 
-void	render_movecount(t_mlx_data *data)
+void	render_movecount(t_data *data)
 {
 	char	*count;
 
@@ -89,13 +95,19 @@ void	render_movecount(t_mlx_data *data)
 	free(count);
 }
 
-void	init_data(t_mlx_data *data, t_player *player, t_map *map, t_coin *coin)
+t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost)
 {
-	data->map = map;
-	data->counter = 0;
-	data->player = player;
+	t_data	data;
+
+	data.counter = 0;
+	data.map = map;
 	player->collected = 0;
 	player->movements = 0;
-	data->coin = coin;
-	data->coin->index = 0;
+	data.player = player;
+	coin->index = 0;
+	data.coin = coin;
+	ghost->index = 0;
+	ghost->direction = 1;
+	data.ghost = ghost;
+	return (data);
 }

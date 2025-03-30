@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_validation.c                                    :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 14:55:00 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/29 23:21:22 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/30 14:34:43 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/30 16:00:47 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#include "../include/so_long.h"
 
 static int	check_the_line(char *s, int *e_count, int *c_count, int *sp_count)
 {
@@ -25,7 +25,7 @@ static int	check_the_line(char *s, int *e_count, int *c_count, int *sp_count)
 			(*c_count)++;
 		else if (s[i] == 'P')
 			(*sp_count)++;
-		else if (s[i] != '0' && s[i] != '1' && s[i] != '\n')
+		else if (s[i] != '0' && s[i] != '1' && s[i] != 'G' && s[i] != '\n')
 			return (0);
 		i++;
 	}
@@ -61,7 +61,7 @@ static int	check_map_characters(int map_fd, int *line_count)
 	return (0);
 }
 
-static void	allocate_map(t_mlx_data *data, int line_count)
+static void	allocate_map(t_data *data, int line_count)
 {
 	int		i;
 	char	*line;
@@ -86,7 +86,7 @@ static void	allocate_map(t_mlx_data *data, int line_count)
 	(data->map->map)[i] = NULL;
 }
 
-void	validate_and_allocate(char *filename, t_mlx_data *data)
+void	validate_and_allocate(char *filename, t_data *data)
 {
 	int	line_count;
 

@@ -1,5 +1,6 @@
 /minilibx-linux
 /.vscode
+/objs
 
 */*.a
 */*.o

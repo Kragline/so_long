@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_validation_utils.c                              :+:      :+:    :+:   */
+/*   validation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 17:49:46 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 13:52:12 by armarake         ###   ########.fr       */
+/*   Created: 2025/03/30 14:34:50 by armarake          #+#    #+#             */
+/*   Updated: 2025/03/30 15:58:51 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#include "../include/so_long.h"
 
 int	ends_with_ber(char *filename)
 {
@@ -32,7 +32,7 @@ int	open_map(char *filename)
 	return (fd);
 }
 
-int	**allocate_visited(t_mlx_data *data, int *start_x, int *start_y)
+int	**allocate_visited(t_data *data, int *start_x, int *start_y)
 {
 	int	i;
 	int	**visited;

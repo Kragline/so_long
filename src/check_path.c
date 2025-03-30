@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_path.c                                    :+:      :+:    :+:   */
+/*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:02:39 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/28 13:55:39 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:58:51 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_so_long.h"
+#include "../include/so_long.h"
 
 static int	exit_dfs(t_map *map, int**visited, int x, int y)
 {
 	if (x < 0 || x >= map->rows || y < 0 || y >= map->cols
-		|| map->map[x][y] == '1' || visited[x][y])
+		|| map->map[x][y] == '1' || map->map[x][y] == 'G' || visited[x][y])
 		return (0);
 	if (map->map[x][y] == 'E')
 		return (1);
@@ -26,7 +26,7 @@ static int	exit_dfs(t_map *map, int**visited, int x, int y)
 	return (0);
 }
 
-int	check_exit_path(t_mlx_data *data)
+int	check_exit_path(t_data *data)
 {
 	int	**visited;
 	int	start_x;
@@ -69,7 +69,7 @@ static int	collectable_dfs(t_map *map, int **visited, int x, int y)
 
 	count = 0;
 	if (x < 0 || x >= map->rows || y < 0 || y >= map->cols
-		|| map->map[x][y] == '1' || visited[x][y])
+		|| map->map[x][y] == '1' || map->map[x][y] == 'G' || visited[x][y])
 		return (0);
 	visited[x][y] = 1;
 	if (map->map[x][y] == 'C')
@@ -81,7 +81,7 @@ static int	collectable_dfs(t_map *map, int **visited, int x, int y)
 	return (count);
 }
 
-int	check_collectibles_path(t_mlx_data *data)
+int	check_collectibles_path(t_data *data)
 {
 	int	**visited;
 	int	start_x;
