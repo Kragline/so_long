@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/31 14:20:37 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:42:46 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ void	render_movecount(t_data *data);
 void	init_textures(t_data *data);
 int		render_next_frame(t_data *data);
 int		game_over(t_data *data);
+int		is_rectangular(t_map *map);
 
 #endif

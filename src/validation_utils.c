@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:50 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 15:58:51 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:55:40 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,26 @@ int	surrounded_by_walls(t_map *map)
 	{
 		if (map->map[i][0] != '1' || map->map[i][map->cols - 1] != '1')
 			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	is_rectangular(t_map *map)
+{
+	int		i;
+	char	*trim;
+
+	i = 0;
+	while (map->map[i])
+	{
+		trim = ft_strtrim(map->map[i], "\n\0");
+		if (!trim)
+			return (0);
+		if ((int)gnl_strlen(trim) != map->cols)
+			return (free(trim), trim = NULL, 0);
+		free(trim);
+		trim = NULL;
 		i++;
 	}
 	return (1);

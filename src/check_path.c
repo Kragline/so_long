@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:02:39 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 15:58:51 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:36:41 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static int	collectable_dfs(t_map *map, int **visited, int x, int y)
 
 	count = 0;
 	if (x < 0 || x >= map->rows || y < 0 || y >= map->cols
-		|| map->map[x][y] == '1' || map->map[x][y] == 'G' || visited[x][y])
+		|| map->map[x][y] == '1' || map->map[x][y] == 'G'
+		|| map->map[x][y] == 'E' || visited[x][y])
 		return (0);
 	visited[x][y] = 1;
 	if (map->map[x][y] == 'C')
