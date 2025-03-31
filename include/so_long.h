@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 17:22:12 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:20:37 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
-# include "../gnl/get_next_line.h"
+# include "get_next_line.h"
 
 # define KEY_ESC 65307
 

@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 17:02:53 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:33:09 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	close_game(t_data *data)
 
 void	throw_an_error(char *message, t_data *data)
 {
-	cleanup(data);
+	if (data)
+		cleanup(data);
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(message, 2);
 	exit(1);

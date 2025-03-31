@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:18 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 15:58:51 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:12:47 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,21 @@ static void	clear_ghost_textures(t_data *data)
 
 void	clear_textures(t_data *data)
 {
-	if (data->grass_img)
-		mlx_destroy_image(data->mlx, data->grass_img);
-	if (data->wall_img)
-		mlx_destroy_image(data->mlx, data->wall_img);
-	if (data->exit_img)
-		mlx_destroy_image(data->mlx, data->exit_img);
-	if (data->player->player_images[0])
-		mlx_destroy_image(data->mlx, data->player->player_images[0]);
-	if (data->player->player_images[1])
-		mlx_destroy_image(data->mlx, data->player->player_images[1]);
+	if (!data->grass_img)
+		return ;
+	if (!data->wall_img)
+		return ;
+	if (!data->exit_img)
+		return ;
+	if (!data->player->player_images[0])
+		return ;
+	if (!data->player->player_images[1])
+		return ;
+	mlx_destroy_image(data->mlx, data->grass_img);
+	mlx_destroy_image(data->mlx, data->wall_img);
+	mlx_destroy_image(data->mlx, data->exit_img);
+	mlx_destroy_image(data->mlx, data->player->player_images[0]);
+	mlx_destroy_image(data->mlx, data->player->player_images[1]);
 	clear_coin_textures(data);
 	clear_ghost_textures(data);
 }

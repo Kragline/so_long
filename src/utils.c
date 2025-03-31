@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:56 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 17:13:37 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:18:25 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost)
 {
 	t_data	data;
 
+	data.mlx = NULL;
+	data.mlx_win = NULL;
+	data.grass_img = NULL;
+	data.wall_img = NULL;
+	data.exit_img = NULL;
+	data.player_img = NULL;
 	data.counter = 0;
 	data.map = map;
 	player->collected = 0;

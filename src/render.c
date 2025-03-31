@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 16:58:02 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/30 17:25:41 by armarake         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:30:02 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	render_next_frame(t_data *data)
 	if (!data)
 		return (0);
 	data->counter++;
-	if (data->counter >= 4000)
+	if (data->counter >= 6000)
 	{
 		draw_the_map(data);
 		render_movecount(data);
