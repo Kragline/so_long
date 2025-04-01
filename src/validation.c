@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:43 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/01 15:20:04 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:53:17 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ static int	check_map_characters(int map_fd, int *line_count)
 	while (line)
 	{
 		if (!check_the_line(line, &exit_count, &coll_count, &sp_count))
-		{
-			free(line);
-			line = NULL;
-			return (0);
-		}
+			return (get_next_line(-1), free(line), line = NULL, 0);
 		(*line_count)++;
 		free(line);
 		line = NULL;
@@ -79,7 +75,11 @@ static void	allocate_map(t_data *data, int line_count)
 	{
 		(data->map->map)[i] = ft_strdup(line);
 		if (!(data->map->map))
+		{
+			free(line);
+			line = NULL;
 			throw_an_error("Map allocation failed", data);
+		}
 		i++;
 		free(line);
 		line = NULL;
