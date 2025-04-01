@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:43 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/31 16:50:43 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:20:04 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	check_the_line(char *s, int *e_count, int *c_count, int *sp_count)
 {
 	int	i;
 
+	if (*s == '\n')
+		return (0);
 	i = 0;
 	while (s[i])
 	{
