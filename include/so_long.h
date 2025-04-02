@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/31 16:42:46 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:12:32 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_map
 	char	**map;
 	int		rows;
 	int		cols;
-	int		collectibles_count;
+	int		coin_count;
 }	t_map;
 
 typedef struct s_player
@@ -77,28 +77,37 @@ typedef struct s_data
 	t_ghost		*ghost;
 }	t_data;
 
-int		handle_key_press(int keycode, t_data *data);
-int		close_game(t_data *data);
-void	validate_and_allocate(char *filename, t_data *data);
-int		ends_with_ber(char *filename);
+//				Validation
 int		open_map(char *filename);
-void	throw_an_error(char *message, t_data *data);
-void	find_starting_position(t_map *map, int *start_x, int *start_y);
+int		ends_with_ber(char *filename);
+void	validate_and_allocate(char *filename, t_data *data);
 int		surrounded_by_walls(t_map *map);
-void	ft_free_map(char **tab);
-void	ft_free_visited(int **tab);
+int		is_rectangular(t_map *map);
+void	find_starting_position(t_map *map, int *start_x, int *start_y);
 int		**allocate_visited(t_data *map, int *start_x, int *start_y);
 int		check_exit_path(t_data *data);
-int		check_collectibles_path(t_data *map);
+int		check_coins_path(t_data *map);
+
+//				Initialization
+t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost);
+void	init_textures(t_data *data);
 void	draw_the_map(t_data *data);
-void	clear_textures(t_data *data);
+
+//				Movements
+int		handle_key_press(int keycode, t_data *data);
 void	change_position_vertical(t_data *data, int new_y);
 void	change_position_horizontal(t_data *data, int new_x);
-t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost);
 void	render_movecount(t_data *data);
-void	init_textures(t_data *data);
+
+//				Rendering
 int		render_next_frame(t_data *data);
-int		game_over(t_data *data);
-int		is_rectangular(t_map *map);
+int		game_over(t_data *data, int victory);
+
+//				Free and exit
+void	ft_free_map(char **tab);
+void	ft_free_visited(int **tab);
+void	clear_textures(t_data *data);
+int		close_game(t_data *data);
+void	throw_an_error(char *message, t_data *data);
 
 #endif

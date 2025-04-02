@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:02:39 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/01 15:17:29 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:12:44 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ static void	find_collectibles_count(t_map *map)
 	int	j;
 
 	i = 0;
-	map->collectibles_count = 0;
+	map->coin_count = 0;
 	while (i < map->rows)
 	{
 		j = 0;
 		while (j < map->cols)
 		{
 			if (map->map[i][j] == 'C')
-				map->collectibles_count++;
+				map->coin_count++;
 			j++;
 		}
 		i++;
 	}
 }
 
-static int	collectable_dfs(t_map *map, int **visited, int x, int y)
+static int	coin_dfs(t_map *map, int **visited, int x, int y)
 {
 	int	count;
 
@@ -75,14 +75,14 @@ static int	collectable_dfs(t_map *map, int **visited, int x, int y)
 	visited[x][y] = 1;
 	if (map->map[x][y] == 'C')
 		count++;
-	count += collectable_dfs(map, visited, x + 1, y);
-	count += collectable_dfs(map, visited, x - 1, y);
-	count += collectable_dfs(map, visited, x, y + 1);
-	count += collectable_dfs(map, visited, x, y - 1);
+	count += coin_dfs(map, visited, x + 1, y);
+	count += coin_dfs(map, visited, x - 1, y);
+	count += coin_dfs(map, visited, x, y + 1);
+	count += coin_dfs(map, visited, x, y - 1);
 	return (count);
 }
 
-int	check_collectibles_path(t_data *data)
+int	check_coins_path(t_data *data)
 {
 	int	**visited;
 	int	start_x;
@@ -92,7 +92,7 @@ int	check_collectibles_path(t_data *data)
 	visited = allocate_visited(data, &start_x, &start_y);
 	find_starting_position(data->map, &start_x, &start_y);
 	find_collectibles_count(data->map);
-	collected = collectable_dfs(data->map, visited, start_x, start_y);
+	collected = coin_dfs(data->map, visited, start_x, start_y);
 	ft_free_visited(visited);
-	return (collected == data->map->collectibles_count);
+	return (collected == data->map->coin_count);
 }

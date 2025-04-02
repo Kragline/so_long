@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 16:58:02 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/31 14:30:02 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/02 14:55:57 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,16 @@ int	render_next_frame(t_data *data)
 	return (1);
 }
 
-int	game_over_screen(t_data *data)
+void	render_movecount(t_data *data)
 {
-	if (!data)
-		return (0);
-	mlx_clear_window(data->mlx, data->mlx_win);
-	mlx_string_put(data->mlx, data->mlx_win, ((data->map->cols - 1) * 64) / 2,
-		(data->map->rows * 64) / 2, 0xFF0000, "GAME OVER!");
-	return (1);
-}
+	char	*count;
 
-int	game_over(t_data *data)
-{
-	if (!data)
-		return (0);
-	mlx_loop_hook(data->mlx, game_over_screen, data);
-	return (1);
+	count = ft_itoa(data->player->movements);
+	if (!count)
+		return ;
+	mlx_string_put(data->mlx, data->mlx_win, 10,
+		data->map->rows * 64 - 10, 0xFFFFFF, "Movements:");
+	mlx_string_put(data->mlx, data->mlx_win, 75,
+		data->map->rows * 64 - 10, 0xFFFFFF, count);
+	free(count);
 }

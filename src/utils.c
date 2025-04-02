@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:56 by armarake          #+#    #+#             */
-/*   Updated: 2025/03/31 13:18:25 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:11:54 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	change_position_vertical(t_data *data, int new_y)
 {
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] == 'G')
-		game_over(data);
+		game_over(data, 0);
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] == 'E'
-		&& data->player->collected == data->map->collectibles_count)
-		close_game(data);
+		&& data->player->collected == data->map->coin_count)
+		game_over(data, 1);
 	if (data->map->map[new_y][data->player->x_pos]
 		&& data->map->map[new_y][data->player->x_pos] != 'E'
 		&& data->map->map[new_y][data->player->x_pos] != '1')
@@ -63,11 +63,11 @@ void	change_position_horizontal(t_data *data, int new_x)
 {
 	if (data->map->map[data->player->y_pos][new_x]
 		&& data->map->map[data->player->y_pos][new_x] == 'G')
-		game_over(data);
+		game_over(data, 0);
 	if (data->map->map[data->player->y_pos][new_x]
 		&& data->map->map[data->player->y_pos][new_x] == 'E'
-		&& data->player->collected == data->map->collectibles_count)
-		close_game(data);
+		&& data->player->collected == data->map->coin_count)
+		game_over(data, 1);
 	if (data->map->map[data->player->y_pos][new_x]
 		&& data->map->map[data->player->y_pos][new_x] != 'E'
 		&& data->map->map[data->player->y_pos][new_x] != '1')
@@ -79,20 +79,6 @@ void	change_position_horizontal(t_data *data, int new_x)
 		data->player->y_pos = new_x;
 		data->player->movements++;
 	}
-}
-
-void	render_movecount(t_data *data)
-{
-	char	*count;
-
-	count = ft_itoa(data->player->movements);
-	if (!count)
-		return ;
-	mlx_string_put(data->mlx, data->mlx_win, 10,
-		data->map->rows * 64 - 10, 0xFFFFFF, "Movements:");
-	mlx_string_put(data->mlx, data->mlx_win, 75,
-		data->map->rows * 64 - 10, 0xFFFFFF, count);
-	free(count);
 }
 
 t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost)

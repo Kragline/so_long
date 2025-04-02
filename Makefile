@@ -11,7 +11,7 @@ SRC_DIR = src/
 OBJS_DIR = objs/
 
 FILENAMES = main keypress exit validation validation_utils utils free \
-			check_path draw textures render get_next_line get_next_line_utils
+			check_path draw textures render game_over get_next_line get_next_line_utils
 SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILENAMES)))
 OBJS = $(addsuffix .o, $(addprefix $(OBJS_DIR), $(FILENAMES)))
 
