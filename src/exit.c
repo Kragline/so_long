@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:25:19 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/02 14:40:15 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/03 21:30:29 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	cleanup(t_data *data)
 	if (data->map->map)
 		ft_free_map(data->map->map);
 	close(data->map->map_fd);
-	clear_textures(data);
+	if (data)
+		clear_textures(data);
 	if (data->mlx_win)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);

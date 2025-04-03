@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 19:57:33 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/02 15:12:32 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/03 21:23:25 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ int		game_over(t_data *data, int victory);
 void	ft_free_map(char **tab);
 void	ft_free_visited(int **tab);
 void	clear_textures(t_data *data);
+void	clear_coin_textures(t_data *data);
+void	clear_ghost_textures(t_data *data);
+void	clear_player_textures(t_data *data);
 int		close_game(t_data *data);
 void	throw_an_error(char *message, t_data *data);
 

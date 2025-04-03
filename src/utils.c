@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:56 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/02 15:11:54 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/03 22:02:45 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,31 @@ void	change_position_horizontal(t_data *data, int new_x)
 	}
 }
 
+static void	set_null(t_data *data)
+{
+	int	i;
+
+	data->mlx = NULL;
+	data->mlx_win = NULL;
+	data->grass_img = NULL;
+	data->wall_img = NULL;
+	data->exit_img = NULL;
+	data->player_img = NULL;
+	i = 0;
+	while (i < 6)
+		data->coin->coin_images[i++] = NULL;
+	i = 0;
+	while (i < 5)
+		data->ghost->ghost_images[i++] = NULL;
+	i = 0;
+	while (i < 2)
+		data->player->player_images[i++] = NULL;
+}
+
 t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost)
 {
 	t_data	data;
 
-	data.mlx = NULL;
-	data.mlx_win = NULL;
-	data.grass_img = NULL;
-	data.wall_img = NULL;
-	data.exit_img = NULL;
-	data.player_img = NULL;
 	data.counter = 0;
 	data.map = map;
 	player->collected = 0;
@@ -101,5 +116,6 @@ t_data	init_data(t_map *map, t_player *player, t_coin *coin, t_ghost *ghost)
 	ghost->index = 0;
 	ghost->direction = 1;
 	data.ghost = ghost;
+	set_null(&data);
 	return (data);
 }
