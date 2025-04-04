@@ -6,7 +6,7 @@
 /*   By: armarake <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:34:43 by armarake          #+#    #+#             */
-/*   Updated: 2025/04/02 15:12:32 by armarake         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:04:28 by armarake         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ void	validate_and_allocate(char *filename, t_data *data)
 	close(data->map->map_fd);
 	data->map->map_fd = open_map(filename);
 	allocate_map(data, line_count);
+	if (!is_rectangular(data->map))
+		throw_an_error("Map isn't rectangular", data);
 	if (!check_exit_path(data))
 		throw_an_error("No valid path for exit", data);
 	if (!check_coins_path(data))
 		throw_an_error("No valid path for coins", data);
 	if (!surrounded_by_walls(data->map))
 		throw_an_error("Map isn't surrounded by walls", data);
-	if (!is_rectangular(data->map))
-		throw_an_error("Map isn't rectangular", data);
 }
