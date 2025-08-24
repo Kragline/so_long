@@ -41,7 +41,7 @@ Want to make the game more fun? You can add:
 
 ---
 
-## Installation
+## Installation and usage
 
 This project requires the **MiniLibX** graphics library.
 
@@ -59,10 +59,6 @@ cd minilibx
 ./configure
 cd ..
 
----
-
-### Usage
-
-```bash
+# Run the game
 make
 ./so_long maps/example.ber
